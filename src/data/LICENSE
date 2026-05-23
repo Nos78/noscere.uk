@@ -1,0 +1,6 @@
+License
+
+All rights reserved. The contents of this data ("DATA") folder and all it's contents is published under seperate license and does not constitute part of the MIT licensed source contained in the parent folder ("SOURCE").
+This DATA is private and may be used to display the website https://noscere.uk ("WEBSITE") and may be held by github.com for the purpose of compiling said website. All repositories forking this SOURCE must redact this private data by running the script within the data folder, or otherwise erase the data from the structures defined within the <data>.ts files.
+
+Copyright (c) 2026 Nos78
