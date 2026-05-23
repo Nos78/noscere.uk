@@ -1,5 +1,4 @@
-# Astro Starter Kit: Minimal
-
+# noscere.uk : Technical CV/Resume website built under Astro framework
 ```sh
 npm create astro@latest -- --template minimal
 ```
