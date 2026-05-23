@@ -54,7 +54,12 @@ const featuredProjects = (await getCollection("projects"))
 						<div class="p-6 bg-slate-900/40 border border-slate-800/80 rounded-2xl transition-all duration-200 hover:border-slate-700/60 hover:bg-slate-900/60">
 							<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
 								<h3 class="text-lg font-bold text-slate-100 tracking-tight">
-									{project.data.title}
+									<a
+										href={`/projects/${project.id}`}
+										class="hover:text-cyan-400 transition-colors"
+									>
+										{project.data.title}
+									</a>
 								</h3>
 								<span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 px-2.5 py-0.5 rounded-full border border-cyan-900/50 self-start sm:self-auto">
 									{project.data.role}
