@@ -1,0 +1,58 @@
+---
+// src/pages/blog/index.astro
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// Fetch all markdown files that aren't marked as drafts, sorted by date
+const posts = (await getCollection("blog"))
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="noscere.uk | Engineering Blog">
+    <main class="max-w-2xl mx-auto px-6 py-16">
+        <a href="/" class="text-xs font-mono text-emerald-400 hover:underline"
+            >← Return Home</a
+        >
+
+        <h1
+            class="text-4xl font-black tracking-tight mt-4 mb-8 text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400"
+        >
+            Engineering Blog
+        </h1>
+
+        <div class="space-y-8">
+            {
+                posts.map((post) => (
+                    <article class="p-6 bg-slate-900/40 border border-slate-800 rounded-2xl transition-all duration-200 hover:border-slate-700">
+                        <div class="text-xs font-mono text-slate-500 mb-2">
+                            {post.data.pubDate.toLocaleDateString("en-GB", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                            })}
+                        </div>
+                        <h2 class="text-xl font-bold mb-2 text-slate-100">
+                            <a
+                                href={`/blog/${post.id}`}
+                                class="hover:text-emerald-400 transition-colors"
+                            >
+                                {post.data.title}
+                            </a>
+                        </h2>
+                        <p class="text-sm text-slate-400 mb-4 leading-relaxed">
+                            {post.data.description}
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            {post.data.tags.map((tag) => (
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800/60">
+                                    #{tag}
+                                </span>
+                            ))}
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+    </main>
+</BaseLayout>

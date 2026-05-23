@@ -1,0 +1,50 @@
+---
+// src/pages/blog/[...slug].astro
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content"; // <-- Added 'render' here
+
+export async function getStaticPaths() {
+    const blogEntries = await getCollection("blog");
+    return blogEntries.map((entry) => ({
+        params: { slug: entry.id }, // Astro 6 uses 'id' instead of 'slug' for the filename parameter
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry); // <-- Modern v6 rendering syntax
+---
+
+<BaseLayout title={`noscere.uk | ${entry.data.title}`}>
+    <main class="max-w-2xl mx-auto px-6 py-16">
+        <a
+            href="/blog"
+            class="text-xs font-mono text-emerald-400 hover:underline"
+            >← Back to Blog</a
+        >
+
+        <article class="mt-8">
+            <header class="mb-8 border-b border-slate-800 pb-6">
+                <h1
+                    class="text-3xl sm:text-4xl font-black tracking-tight text-slate-100 mb-3 leading-tight"
+                >
+                    {entry.data.title}
+                </h1>
+                <div class="text-xs font-mono text-slate-500">
+                    Published: {
+                        entry.data.pubDate.toLocaleDateString("en-GB", {
+                            day: "numeric",
+                            month: "long",
+                            year: "numeric",
+                        })
+                    }
+                </div>
+            </header>
+            <div
+                class="prose prose-invert max-w-none font-sans text-slate-300 leading-relaxed space-y-4 prose-headings:text-slate-100 prose-headings:font-bold prose-headings:tracking-tight prose-headings:mt-8 prose-headings:mb-4 prose-h3:text-lg prose-strong:text-emerald-400 prose-code:font-mono prose-code:text-emerald-300 prose-code:bg-slate-900 prose-code:px-1 prose-code:py-0.5 prose-code:rounded"
+            >
+                <Content />
+            </div>
+        </article>
+    </main>
+</BaseLayout>
