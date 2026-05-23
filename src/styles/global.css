@@ -1,1 +1,26 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* globally altering your primary text or font tokens for the whole app */
+/* @theme {
+    --font-display: "Satoshi", sans-serif;
+    --color-brand-primary: #3b82f6;
+    --color-brand-dark: #1e293b;
+} */
+
+/* Define custom typography modifiers */
+/* @utility prose-custom {
+    --tw-prose-headings: var(--color-brand-dark);
+    --tw-prose-links: var(--color-brand-primary);
+    --tw-prose-bullet-matching: var(--color-brand-primary);
+} */
+
+.prose {
+
+    h1,
+    h2,
+    h3 {
+        font-weight: bold;
+        font-size: 1.25em;
+    }
+}

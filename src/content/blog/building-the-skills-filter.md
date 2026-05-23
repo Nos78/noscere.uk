@@ -10,7 +10,7 @@ Full-stack development often feels like a tale of two entirely different discipl
 
 However, once a project goes live, product support cycles highlight a stark reality: backend bugs are where the silent landmines are, but frontend execution is what establishes user trust. Historically, this contrast has escaped even the most seasoned of senior software development engineers. Memes stem from truth, and the full stack developer meme - of the Mona Lisa with a line-drawn face - is no exception.
 
-### The Challenge
+## The Challenge
 
 To prove that even my "weakest" engineering discipline is rock solid, I wanted to build an interactive, highly responsive skillset routing matrix for `noscere.uk` that bypasses heavy virtual-DOM framework bloat.
 
