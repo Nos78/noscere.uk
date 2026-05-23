@@ -1,0 +1,167 @@
+---
+// src/components/QuotesEngine.astro
+import { quotesList } from "../data/quotesData";
+
+interface Props {
+    quoteTitle?: string;
+    changeInterval?: "refresh" | "hourly" | "daily";
+    allowClick?: boolean;
+}
+
+const {
+    quoteTitle = "Random quote of the moment:",
+    changeInterval = "refresh",
+    allowClick = true,
+} = Astro.props;
+---
+
+<div
+    id="quotes-engine-container"
+    data-interval={changeInterval}
+    data-allow-click={allowClick.toString()}
+    data-quotes={JSON.stringify(quotesList)}
+    class={`p-6 bg-slate-900/30 border border-slate-800/60 rounded-2xl max-w-xl mx-auto my-6 transition-all duration-300
+    ${
+        allowClick
+            ? "cursor-pointer hover:border-cyan-800/50 hover:bg-slate-900/50 group"
+            : ""
+    }`}
+>
+    <div class="quotes-engine-heading headings">
+        <h3 id="quote-title">{quoteTitle}</h3>
+    </div>
+
+    <blockquote
+        class="transition-opacity duration-300 opacity-100"
+        id="quote-blockquote"
+    >
+        <p
+            class="text-sm italic text-slate-300 font-sans leading-relaxed text-center"
+            id="quote-text"
+        >
+            Loading engineering insights...
+        </p>
+        <cite
+            class="block text-right mt-3 not-italic text-xs font-mono text-slate-500"
+            id="quote-author"
+        >
+            &mdash;
+        </cite>
+    </blockquote>
+</div>
+
+{
+    allowClick && (
+        <div class="text-[10px] font-mono text-slate-600 text-center mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            Click card to shuffle insight ↗
+        </div>
+    )
+}
+
+<script>
+    import type { Quote } from "../data/quotesData";
+
+    // Grab container control hooks
+    const container = document.getElementById("quotes-engine-container");
+    const quoteText = document.getElementById("quote-text");
+    const quoteAuthor = document.getElementById("quote-author");
+    const blockquote = document.getElementById("quote-blockquote");
+
+    if (container && quoteText && quoteAuthor && blockquote) {
+        const interval = container.dataset.interval;
+        const allowClick = container.dataset.allowClick === "true";
+        const quotes: Quote[] = JSON.parse(container.dataset.quotes || "[]");
+
+        // Utility helper to render an update with a subtle visual fade
+        function updateDOM(quote: Quote) {
+            blockquote!.classList.remove("opacity-100");
+            blockquote!.classList.add("opacity-0");
+
+            setTimeout(() => {
+                quoteText!.textContent = `"${quote.text}"`;
+                quoteAuthor!.textContent = quote.context
+                    ? `— ${quote.author} (${quote.context})`
+                    : `— ${quote.author}`;
+
+                blockquote!.classList.remove("opacity-0");
+                blockquote!.classList.add("opacity-100");
+            }, 300); // Matches Tailwind's duration-300
+        }
+
+        // Core strategy selector engine
+        function getSelectedQuote(): Quote {
+            if (quotes.length === 0)
+                return { text: "No quotes configured.", author: "System" };
+
+            const now = Date.now();
+            const oneHour = 60 * 60 * 1000;
+            const oneDay = 24 * oneHour;
+
+            if (interval === "refresh") {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                return quotes[randomIndex];
+            }
+
+            // Check for cached state keys
+            const cachedQuote = localStorage.getItem("quotes_engine_saved");
+            const cachedTime = localStorage.getItem("quotes_engine_timestamp");
+            const targetDuration = interval === "daily" ? oneDay : oneHour;
+
+            if (
+                cachedQuote &&
+                cachedTime &&
+                now - parseInt(cachedTime, 10) < targetDuration
+            ) {
+                return JSON.parse(cachedQuote);
+            }
+
+            // Stale cache or fresh boot: pick new and lock it down
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const selected = quotes[randomIndex];
+
+            localStorage.setItem(
+                "quotes_engine_saved",
+                JSON.stringify(selected)
+            );
+            localStorage.setItem("quotes_engine_timestamp", now.toString());
+
+            return selected;
+        }
+
+        // Manual Shuffle Handler override
+        function handleManualShuffle() {
+            const currentText = quoteText!.textContent;
+            let nextQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+            // Prevent hitting the exact same item back-to-back on quick shuffles
+            while (quotes.length > 1 && `"${nextQuote.text}"` === currentText) {
+                nextQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            }
+
+            // Update temporal tracking if explicitly constrained
+            if (interval !== "refresh") {
+                localStorage.setItem(
+                    "quotes_engine_saved",
+                    JSON.stringify(nextQuote)
+                );
+                localStorage.setItem(
+                    "quotes_engine_timestamp",
+                    Date.now().toString()
+                );
+            }
+
+            updateDOM(nextQuote);
+        }
+
+        // Initialise Execution Thread
+        const primaryQuote = getSelectedQuote();
+        quoteText.textContent = `"${primaryQuote.text}"`;
+        quoteAuthor.textContent = primaryQuote.context
+            ? `— ${primaryQuote.author} (${primaryQuote.context})`
+            : `— ${primaryQuote.author}`;
+
+        if (allowClick) {
+            container.addEventListener("click", handleManualShuffle);
+        }
+    }
+</script>
