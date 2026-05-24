@@ -128,8 +128,12 @@ const {
             return selected;
         }
 
+        let isTransitioning = false; // <-- The flag lock
+
         // Manual Shuffle Handler override
         function handleManualShuffle() {
+            if (isTransitioning) return; // Exit early if animation is executing ***
+            // Preventing click spamming crashing the DOM
             const currentText = quoteText!.textContent;
             let nextQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
@@ -149,8 +153,13 @@ const {
                     Date.now().toString()
                 );
             }
-
+            isTransitioning = true; // <-- Lock the thread
             updateDOM(nextQuote);
+
+            // Release the thread lock exactly when the Tailwind duration-300 completes
+            setTimeout(() => {
+                isTransitioning = false;
+            }, 300);
         }
 
         // Initialise Execution Thread
