@@ -48,15 +48,14 @@ const {
             &mdash;
         </cite>
     </blockquote>
+    {
+        allowClick && (
+            <div class="text-[10px] font-mono text-slate-600 text-center mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                Click card to shuffle insight ↗
+            </div>
+        )
+    }
 </div>
-
-{
-    allowClick && (
-        <div class="text-[10px] font-mono text-slate-600 text-center mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-            Click card to shuffle insight ↗
-        </div>
-    )
-}
 
 <script>
     import type { Quote } from "../data/quotesData";
