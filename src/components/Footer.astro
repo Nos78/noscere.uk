@@ -1,0 +1,49 @@
+---
+// src/components/Footer.astro
+import { version } from "../../package.json";
+
+const currentYear = new Date().getFullYear();
+
+// Read Cloudflare's automated system telemetry injected at compilation time
+const commitSha = import.meta.env.CF_PAGES_COMMIT_SHA || "local-dev";
+const branchName = import.meta.env.CF_PAGES_BRANCH || "main";
+
+// Shorten the 40-character cryptographic hash to a clean 7-character systems token
+const shortSha =
+    commitSha !== "local-dev" ? commitSha.substring(0, 7) : "debug";
+---
+
+<footer
+    class="w-full text-zinc-500 items-center justify-center text-center border-t py-8 border-zinc-800 bg-zinc-950/50"
+>
+    <div
+        class="max-w-4xl mx-auto px-4 text-xs font-mono tracking-tight space-y-2"
+    >
+        <p class="font-sans text-sm text-zinc-400">
+            &copy; {currentYear} noscere.uk. All rights reserved.
+        </p>
+
+        <div
+            class="text-zinc-600 flex flex-wrap items-center justify-center gap-x-2 gap-y-1"
+        >
+            <span
+                >Powered by <a
+                    href="https://astro.build"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-zinc-400 hover:text-zinc-300 underline font-sans"
+                    >Astro</a
+                >
+            </span>
+            <span>&bull;</span>
+            <span class="align-text-botttom">Engine v{version}</span>
+            <span>&bull;</span>
+
+            <span
+                class="bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800 text-zinc-400 text-[11px]"
+            >
+                build.{branchName}.{shortSha}
+            </span>
+        </div>
+    </div>
+</footer>

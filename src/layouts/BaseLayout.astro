@@ -1,23 +1,38 @@
 ---
-//
-// src/layouts/BaseLayout.astro
-//
-
+// src/layouts/Layout.astro
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 
-// We can accept props (like title) to dynamically change the browser tab name
+interface Props {
+	title: string;
+}
+
 const { title = "noscere.uk" } = Astro.props;
 ---
 
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="bg-zinc-950 text-zinc-50">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="description" content="Noscere Engineering Portfolio" />
 		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body class="bg-slate-950 text-slate-100 antialiased">
+
+	<!-- <body class="bg-slate-950 text-slate-100 antialiased">
 		<slot />
+	</body> -->
+	<body class="min-h-screen flex flex-col justify-between">
+		<div>
+			<Header />
+			<main>
+				<slot />
+			</main>
+		</div>
+
+		<Footer />
 	</body>
 </html>
