@@ -6,6 +6,8 @@ The platform serves a dual purpose: it acts as a polished, lightning-fast public
 
 ***Elegant & responsive engineering does not require resource-heavy hardware.***
 
+This project is actively being developed, as detailed in ROADMAP.md[^2].
+
 
 ## Project Philosophy & Architecture
 
@@ -16,5 +18,7 @@ Built under strict resource-conservation guidelines, **noscere.uk** is designed 
 * **Streamlined DevOps:** Deployed automatically via Cloudflare Pages with integrated, lightweight asset pipelines and local infrastructure testing loops.
 * **Semantic Release Management:** Implements strict version tracking and automated documentation compilation to ensure a perfectly traceable engineering audit trail.
 
-### Footnotes
+#### Footnotes
 [^1]: My current development environment is an aging laptop, released in 2013. A [Packard Bell Easynote TE69KB](https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/packard-bell-easynote-te69kb-15-6-laptop-silver-black/N067987W) AMD A4-5000 with 8Gb RAM and a 120Gb SSD internal drive, running lubuntu 26.04.
+
+[^2]: Development roadmap for noscere.uk: [github.com/.../ROADMAP.md](https://github.com/Nos78/noscere.uk/blob/main/ROADMAP.md)
