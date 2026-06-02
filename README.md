@@ -1,55 +1,18 @@
-# noscere.uk : Technical CV/Resume website built under Astro framework
-```sh
-npm install
-```
+# noscere.uk
 
-## About
+A lean, high-performance personal portfolio and digital workspace, engineered using a modern web stack of Astro and TailwindCSS v4. Strict performance guidelines maximize hardware efficiency[^1], leveraging a highly optimized development workflow.
 
-** ('noscere.uk'), built with the Astro engine using a node framework, is a full-stack engineering sandbox, with a low-overhead architecture, a bare-metal deployment and a component driven, extremely responsive GUI.
-** [https://noscere.uk](https://noscere.uk), my personal website built from this repository, is a full-stack engineering sandbox documenting low-overhead architecture, bare-metal deployments, and user experience paradigms.
+***Elegant & responsive engineering does not require resource-heavy hardware.***
 
 
+## Project Philosophy & Architecture
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built under strict resource-conservation guidelines, **noscere.uk** is designed to prove that elegant, modern web engineering doesn't require heavy development hardware. The project utilizes a highly optimized, bare-metal development workflow—featuring decoupled VSCodium environments, conventional commit enforcement, and automated changelog generation—to maintain a near-zero development footprint while delivering a lightning-fast user experience.
 
-## 🚀 Project Structure
+### Key Milestones
+* **Component-Driven Design:** Leverages Astro’s islands architecture and Tailwind’s fluid utilities to ensure rapid, responsive mobile and desktop rendering with minimal client-side JavaScript.
+* **Streamlined DevOps:** Deployed automatically via Cloudflare Pages with integrated, lightweight asset pipelines and local infrastructure testing loops.
+* **Semantic Release Management:** Implements strict version tracking and automated documentation compilation to ensure a perfectly traceable engineering audit trail.
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-|   ├── favicon.ico
-|   └── favicon.svg
-├── src/
-|   ├── components/
-|   |   ├── Header.astro
-|   |   ├── QuotesEngine.astro
-|   |   └── SkillsFilter.astro
-|   ├── content/
-|   |   ├── blog/
-|   |   |   └── 
-|   |   └── projects/
-|   |       └──
-|   ├── data/
-|   |   ├── LICENSE
-│   ├── layouts/
-│   |   └── BaseLayout.astro
-|   ├── pages/
-|   |   ├── blog/
-|   |   |   ├── [...slug].astro
-|   |   |   └── index.astro
-|   |   └── projects/
-|   |       ├── [...slug].astro
-|   |       └── index.astro
-|   ├── styles/
-|   |       └── global.css
-|   └── content.config.ts 
-├── astro.config.mjs
-├── LICENSE
-├── package-lock.json
-├── package.json
-├── README.md
-└── tsconfig.ts
-```
-
+### Footnotes
+[^1]: My development environment is an aging laptop from 2013. A Packard Bell Easynote TE69KB AMD A4-5000 with 8Gb RAM and a 120Gb SSD internal drive, running lubuntu 26.04.
