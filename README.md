@@ -2,6 +2,8 @@
 
 A lean, high-performance personal portfolio and digital workspace, engineered using a modern web stack of Astro and TailwindCSS v4. Strict performance guidelines maximize hardware efficiency[^1], leveraging a highly optimized development workflow.
 
+The platform serves a dual purpose: it acts as a polished, lightning-fast public showcase for code assets and multi-disciplinary projects, while internally utilizing containerized pipeline modules for streamlined testing and maintenance. Deployed seamlessly via Cloudflare Pages and managed through a granular, decoupled component architecture, it strikes the perfect balance between minimal runtime overhead and robust, scalable design.
+
 ***Elegant & responsive engineering does not require resource-heavy hardware.***
 
 
@@ -15,4 +17,4 @@ Built under strict resource-conservation guidelines, **noscere.uk** is designed 
 * **Semantic Release Management:** Implements strict version tracking and automated documentation compilation to ensure a perfectly traceable engineering audit trail.
 
 ### Footnotes
-[^1]: My development environment is an aging laptop from 2013. A Packard Bell Easynote TE69KB AMD A4-5000 with 8Gb RAM and a 120Gb SSD internal drive, running lubuntu 26.04.
+[^1]: My current development environment is an aging laptop, released in 2013. A [Packard Bell Easynote TE69KB](https://business.currys.co.uk/catalogue/computing/laptops/windows-laptop/packard-bell-easynote-te69kb-15-6-laptop-silver-black/N067987W) AMD A4-5000 with 8Gb RAM and a 120Gb SSD internal drive, running lubuntu 26.04.
