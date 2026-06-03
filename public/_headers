@@ -1,0 +1,8 @@
+# Force revalidation for all HTML documents so updates show instantly
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Keep static Astro assets (CSS/JS hashes) heavily cached for raw performance
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+  
