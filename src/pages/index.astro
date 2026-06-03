@@ -16,13 +16,13 @@ const featuredProjects = (await getCollection("projects"))
 
 <BaseLayout title="noscere.uk | Home">
 	<main
-		class="flex flex-col items-center justify-center min-h-screen p-4 mx-auto px-4 pb-16 bg-slate-950"
+		class="flex-grow flex flex-col gap-12 items-center justify-center min-h-screen p-4 mx-auto px-4 pb-16 bg-slate-950"
 	>
 		<div class="flex flex-col p-12 pb-6 border-slate-800 sm:text-left">
 			<p class="text-lg text-slate-400 leading-relaxed max-w-2xl">
 				A full-stack engineering sandbox documenting low-overhead
 				architecture, bare-metal deployments, and user experience
-				paradigms.&nbsp;&nbsp;Systems logic meets clean user experience.
+				paradigms. &nbsp; Systems logic meets clean user experience.
 			</p>
 			<p
 				class="text text-slate-400 leading-relaxed max-w-2xl text-center mb-8"
@@ -31,7 +31,6 @@ const featuredProjects = (await getCollection("projects"))
 			</p>
 
 			<QuotesEngine
-				class="quotes-engine-heading"
 				changeInterval="refresh"
 				allowClick={true}
 			/>
