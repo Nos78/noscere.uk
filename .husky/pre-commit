@@ -3,14 +3,10 @@
 # 1. Get the raw list of staged files first without piping into grep immediately
 RAW_STAGED=$(git diff --cached --name-only --diff-filter=AMCR)
 
-<<<<<<< HEAD
 # 2. Use grep cleanly, but append '|| true' so that matching 0 files doesn't throw a pipeline error
 STAGED_FILES=$(echo "$RAW_STAGED" | grep -E '\.(astro|js|ts|css)$' || true)
 
 # 3. If the resulting string is empty, exit cleanly right here!
-=======
-# If no files match, skip and allow the commit
->>>>>>> parent of 33593f6 (refactor(profile): align vCard generation with RFC specifications for structured names)
 if [ -z "$STAGED_FILES" ]; then
     exit 0
 fi
