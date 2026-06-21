@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProfileCard from "../components/ProfileCard.astro";
+---
+
+<BaseLayout title="Contact & Profile | noscere.uk">
+  <!-- Macro layout: Ensures full viewport alignment and handles responsive page constraints -->
+  <main
+    class="flex min-h-[85vh] w-full flex-col items-center justify-center bg-slate-950 py-8 sm:py-12 md:py-16"
+  >
+    <!-- Outer wrapper to safely structure the vertical real estate -->
+    <div class="flex w-full flex-col items-center">
+      <ProfileCard />
+    </div>
+  </main>
+</BaseLayout>

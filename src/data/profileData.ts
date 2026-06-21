@@ -35,7 +35,7 @@ export interface ProfileData {
 
 // production content (Data)
 export const profileData: ProfileData = {
-  name: "Your Name",
+  name: "Michael Thomas",
   pseudonym: "noscere",
   tagline: "Software Engineer & Multi-Disciplinary Developer",
   bioSynopsis:
@@ -43,25 +43,37 @@ export const profileData: ProfileData = {
   vCardPath: "/contacts/profile.vcf",
   emails: [
     {
-      address: "your.professional.email@example.com",
+      address: "noscere1978@gmail.com",
+      displayName: "Personal Email address",
+      primary: false, // The engine will grab this one for your Gravatar avatar!
+    },
+    {
+      address: "contact@noscere.uk",
       displayName: "Professional Inquiries",
-      primary: true, // The engine will grab this one for your Gravatar avatar!
+      primary: false,
     },
   ],
   links: [
     {
       platform: "GitHub",
       label: "Source Code & Repositories",
-      url: "https://github.com/yourusername",
+      url: "https://github.com/nos78",
       category: "professional",
       iconName: "github",
     },
     {
-      platform: "LinkedIn",
-      label: "Professional Network",
-      url: "https://linkedin.com/in/yourusername",
+      platform: "YouTube",
+      label: "Social media platforms",
+      url: "https://www.youtube.com/@glasgowbusker",
+      category: "creative",
+      iconName: "youtube",
+    },
+    {
+      platform: "X",
+      label: "Social media platforms",
+      url: "https://x.com/noscerevelle",
       category: "professional",
-      iconName: "linkedin",
+      iconName: "x",
     },
   ],
   qualifications: [

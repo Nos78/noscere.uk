@@ -1,0 +1,180 @@
+---
+import { profileData } from "../data/profileData";
+import { partitionLinks, getProfileGravatar } from "../utils/profileEngine";
+
+// Run the data through your utilities at build-time
+const avatarUrl = getProfileGravatar(profileData.emails, 300);
+const { professional: profLinks, creative: creativeLinks } = partitionLinks(
+  profileData.links
+);
+const primaryEmail =
+  profileData.emails.find((e) => e.primary) || profileData.emails[0];
+---
+
+<div
+  class="mx-auto flex w-full max-w-md flex-col space-y-6 px-4 py-6 text-slate-100"
+>
+  <!-- 1. The Grid Base Layout Shell -->
+  <header class="flex flex-col items-center space-y-4 text-center">
+    <div class="group relative">
+      <!-- Glow effect to break stagnation -->
+      <div
+        class="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/20 to-slate-500/20 opacity-75 blur-md transition-opacity duration-300 group-hover:opacity-100"
+      >
+      </div>
+      <img
+        src={avatarUrl}
+        alt={`${profileData.name} avatar`}
+        class="relative h-28 w-28 rounded-full border border-slate-700/60 shadow-xl"
+        loading="eager"
+      />
+    </div>
+
+    <div class="space-y-1">
+      <h1 class="text-2xl font-bold tracking-tight text-white">
+        {profileData.name}
+      </h1>
+      {
+        profileData.pseudonym && (
+          <p class="font-mono text-xs text-amber-500/90 lowercase">
+            @{profileData.pseudonym}
+          </p>
+        )
+      }
+      <p class="max-w-xs pt-1 text-sm font-medium text-slate-300">
+        {profileData.tagline}
+      </p>
+    </div>
+
+    <p class="max-w-sm text-xs leading-relaxed font-normal text-slate-400">
+      {profileData.bioSynopsis}
+    </p>
+  </header>
+
+  <hr class="w-full border-slate-800/80" />
+
+  <!-- 2. Conditional Interactive View (Alpine.js or Pure Tailwind/CSS toggle) -->
+  <!-- Note: We are using a zero-overhead Alpine.js script block to instantly handle state without hydration bloat -->
+  <div
+    x-data="{ currentTab: 'professional' }"
+    class="flex w-full flex-col space-y-4"
+  >
+    <!-- Tab Controls -->
+    <div
+      class="grid grid-cols-2 rounded-lg border border-slate-800/80 bg-slate-900/60 p-1 font-mono text-xs"
+    >
+      <button
+        @click="currentTab = 'professional'"
+        :class="currentTab === 'professional' ? 'bg-slate-800 text-amber-500 border-slate-700/50' : 'text-slate-400 border-transparent'"
+        class="rounded-md border px-3 py-2 text-center font-medium transition-all duration-150"
+      >
+        // professional
+      </button>
+      <button
+        @click="currentTab = 'creative'"
+        :class="currentTab === 'creative' ? 'bg-slate-800 text-amber-500 border-slate-700/50' : 'text-slate-400 border-transparent'"
+        class="rounded-md border px-3 py-2 text-center font-medium transition-all duration-150"
+      >
+        // creative
+      </button>
+    </div>
+
+    <!-- Links Dynamic List Blocks -->
+    <div class="min-h-[140px] w-full">
+      <!-- Professional Links Grid -->
+      <div
+        x-show="currentTab === 'professional'"
+        x-transition
+        class="flex flex-col space-y-2"
+      >
+        {
+          profLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex cursor-pointer items-center justify-between rounded-lg border border-slate-800 bg-slate-900/40 p-3 text-slate-300 transition-all duration-200 hover:border-amber-500/30 hover:bg-slate-900 hover:text-white"
+            >
+              <span class="font-sans text-xs font-medium">
+                {link.platform}{" "}
+                <span class="block font-mono text-[10px] font-normal text-slate-500">
+                  {link.label}
+                </span>
+              </span>
+              <span class="font-mono text-xs text-slate-500 transition-colors group-hover:text-amber-500">
+                &rarr;
+              </span>
+            </a>
+          ))
+        }
+        {
+          profLinks.length === 0 && (
+            <p class="py-4 text-center font-mono text-xs text-slate-500">
+              No entries found.
+            </p>
+          )
+        }
+      </div>
+
+      <!-- Creative Links Grid -->
+      <div
+        x-show="currentTab === 'creative'"
+        x-transition
+        class="flex flex-col space-y-2"
+        style="display: none;"
+      >
+        {
+          creativeLinks.map((link) => (
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex cursor-pointer items-center justify-between rounded-lg border border-slate-800 bg-slate-900/40 p-3 text-slate-300 transition-all duration-200 hover:border-amber-500/30 hover:bg-slate-900 hover:text-white"
+            >
+              <span class="font-sans text-xs font-medium">
+                {link.platform}{" "}
+                <span class="block font-mono text-[10px] font-normal text-slate-500">
+                  {link.label}
+                </span>
+              </span>
+              <span class="font-mono text-xs text-slate-500 transition-colors group-hover:text-amber-500">
+                &rarr;
+              </span>
+            </a>
+          ))
+        }
+        {
+          creativeLinks.length === 0 && (
+            <p class="py-4 text-center font-mono text-xs text-slate-500">
+              No entries found.
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </div>
+
+  <hr class="w-full border-slate-800/80" />
+
+  <!-- 3. Semantic Download Actions -->
+  <footer class="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
+    <a
+      href={profileData.vCardPath}
+      download
+      class="flex cursor-pointer items-center justify-center space-x-2 rounded-lg border border-slate-700/50 bg-slate-800/50 px-4 py-3 text-center text-slate-200 transition-colors hover:bg-slate-800 hover:text-white active:border-amber-500"
+    >
+      <span>vCard.vcf</span>
+    </a>
+
+    {
+      primaryEmail && (
+        <a
+          href={`mailto:${primaryEmail.address}`}
+          class="flex cursor-pointer items-center justify-center space-x-2 rounded-lg border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-center font-semibold text-amber-400 transition-colors hover:bg-amber-500/20 hover:text-amber-300 active:border-amber-500"
+        >
+          <span>Get in Touch</span>
+        </a>
+      )
+    }
+  </footer>
+</div>
