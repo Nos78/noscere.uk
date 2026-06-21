@@ -19,12 +19,24 @@ export function generateVCardString(
   // Format the primary site URL cleanly, stripping trailing slashes if present
   const cleanSiteUrl = siteOrigin.replace(/\/$/, "");
 
+  // Map structured fields carefully to ensure pristine mobile sorting index alignment
+  const {
+    lastName,
+    firstName,
+    middleName = "",
+    prefix = "",
+    suffix = "",
+  } = profile.structuredName;
+
+  // vCard 3.0 spec format for N: Family;Given;Additional/Middle;Prefix;Suffix
+  const structuredNameValue = `${lastName};${firstName};${middleName};${prefix};${suffix}`;
+
   // vCard text requires specific line endings (\r\n) and escaping
   const lines = [
     "BEGIN:VCARD",
     "VERSION:3.0",
-    `N:;${profile.name};;;`, // Formatted Name: Last;First;Middle;Prefix;Suffix
-    `FN:${profile.name}`, // Full Name string
+    `N:${structuredNameValue}`, // Behind-the-scenes breakdown for machine sorting/filtering
+    `FN:${profile.name}`, // The human-friendly display string
     `ORG:${profile.pseudonym || ""}`,
     `TITLE:${profile.tagline}`,
     `EMAIL;TYPE=INTERNET,PREF:${primaryEmail}`,

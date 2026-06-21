@@ -9,6 +9,14 @@ export interface SocialLink {
   iconName: string;
 }
 
+export interface StructuredName {
+  firstName: string;
+  lastName: string;
+  middleName?: string;
+  prefix?: string;
+  suffix?: string;
+}
+
 export interface Qualification {
   title: string;
   institution: string;
@@ -24,6 +32,7 @@ export interface Email {
 
 export interface ProfileData {
   name: string;
+  structuredName: StructuredName;
   pseudonym?: string;
   tagline: string;
   bioSynopsis: string;
@@ -36,6 +45,10 @@ export interface ProfileData {
 // production content (Data)
 export const profileData: ProfileData = {
   name: "Michael Thomas",
+  structuredName: {
+    firstName: "Michael",
+    lastName: "Thomas",
+  },
   pseudonym: "noscere",
   tagline: "Software Engineer & Multi-Disciplinary Developer",
   bioSynopsis:
