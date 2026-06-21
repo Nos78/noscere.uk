@@ -4,6 +4,9 @@
 # Extract staged files matching our project extensions
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(astro|js|ts|json|css|md)$')
 
+echo -e "Staged:\n $STAGED_FILES \nEnd\n"
+echo -e "\n"
+
 # If no files match, skip and allow the commit
 if [ -z "$STAGED_FILES" ]; then
     exit 0
