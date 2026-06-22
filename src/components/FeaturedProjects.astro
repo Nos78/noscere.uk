@@ -1,0 +1,85 @@
+---
+// src/components/FeaturedProjects.astro
+import { getCollection } from "astro:content";
+import type { HTMLAttributes } from "astro/types";
+import Bullet from "./Bullet.astro";
+
+interface Props {
+  title?: string;
+  bullet?: boolean;
+}
+
+const { title = "Featured Projects", bullet = false } = Astro.props;
+
+// Dynamic Query: Fetch all markdown files from src/content/projects
+const allProjects = await getCollection("projects");
+
+// Filter & Sort: Only show featured ones, newest completion date first
+const featuredProjects = allProjects
+  .filter((project) => project.data.featured === true)
+  .sort(
+    (a, b) => b.data.completionDate.valueOf() - a.data.completionDate.valueOf()
+  );
+---
+
+<section>
+  <h2
+    class="mb-6 flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-100"
+  >
+    {bullet && <Bullet class="items-center" />}
+    {title}
+  </h2>
+
+  {
+    featuredProjects.length === 0 ? (
+      <p class="text-sm text-gray-500 italic dark:text-gray-400">
+        No featured projects found.
+      </p>
+    ) : (
+      <div class="space-y-4">
+        {featuredProjects.map((project) => (
+          <div class="rounded-2xl border border-slate-800/80 bg-slate-900/40 p-6 transition-all duration-200 hover:border-slate-700/60 hover:bg-slate-900/60">
+            <div class="mb-3 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <h3 class="text-lg font-bold tracking-tight text-slate-100">
+                <a
+                  href={`/projects/${project.id}`}
+                  class="transition-colors hover:text-cyan-400"
+                >
+                  {project.data.title}
+                </a>
+              </h3>
+              <span class="self-start rounded-full border border-cyan-900/50 bg-cyan-950/40 px-2.5 py-0.5 font-mono text-[11px] text-cyan-400 sm:self-auto">
+                {project.data.role}
+              </span>
+            </div>
+
+            <p class="mb-4 text-sm leading-relaxed text-slate-400">
+              {project.data.description}
+            </p>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 border-t border-slate-800/50 pt-2">
+              <div class="flex flex-wrap gap-1.5">
+                {project.data.technologies.map((tech) => (
+                  <span class="rounded border border-slate-800/60 bg-slate-950 px-2 py-0.5 font-mono text-[10px] text-slate-400">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {project.data.githubUrl && (
+                <a
+                  href={project.data.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-1 font-mono text-xs text-slate-400 transition-colors hover:text-emerald-400"
+                >
+                  Source Code ↗
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    )
+  }
+</section>

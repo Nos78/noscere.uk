@@ -1,17 +1,9 @@
 ---
 // src/pages/index.astro
 import BaseLayout from "../layouts/BaseLayout.astro";
-import SkillsFilter from "../components/SkillsFilter.astro"; // <-- Import the component
-import { getCollection } from "astro:content";
+import SkillsFilter from "../components/SkillsFilter.astro";
+import FeaturedProjects from "../components/FeaturedProjects.astro";
 import QuotesEngine from "../components/QuotesEngine.astro";
-
-// Fetch and filter featured projects
-const featuredProjects = (await getCollection("projects"))
-	.filter((project) => project.data.featured)
-	.sort(
-		(a, b) =>
-			b.data.completionDate.valueOf() - a.data.completionDate.valueOf()
-	);
 ---
 
 <BaseLayout title="noscere.uk | Home">
@@ -44,60 +36,8 @@ const featuredProjects = (await getCollection("projects"))
 			</h2>
 			<SkillsFilter />
 		</section>
-		<section class="mt-12 max-w-4xl mx-auto px-4">
-			<h2
-				class="text-2xl font-bold mb-6 text-slate-100 tracking-tight flex items-center gap-2"
-			>
-				<span class="w-2 h-2 rounded-full bg-cyan-400"></span>
-				Featured Case Studies
-			</h2>
-
-			<div class="space-y-4">
-				{
-					featuredProjects.map((project) => (
-						<div class="p-6 bg-slate-900/40 border border-slate-800/80 rounded-2xl transition-all duration-200 hover:border-slate-700/60 hover:bg-slate-900/60">
-							<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-								<h3 class="text-lg font-bold text-slate-100 tracking-tight">
-									<a
-										href={`/projects/${project.id}`}
-										class="hover:text-cyan-400 transition-colors"
-									>
-										{project.data.title}
-									</a>
-								</h3>
-								<span class="text-[11px] font-mono text-cyan-400 bg-cyan-950/40 px-2.5 py-0.5 rounded-full border border-cyan-900/50 self-start sm:self-auto">
-									{project.data.role}
-								</span>
-							</div>
-
-							<p class="text-sm text-slate-400 leading-relaxed mb-4">
-								{project.data.description}
-							</p>
-
-							<div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-slate-800/50">
-								<div class="flex flex-wrap gap-1.5">
-									{project.data.technologies.map((tech) => (
-										<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-950 text-slate-400 border border-slate-800/60">
-											{tech}
-										</span>
-									))}
-								</div>
-
-								{project.data.githubUrl && (
-									<a
-										href={project.data.githubUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-										class="text-xs font-mono text-slate-400 hover:text-emerald-400 transition-colors flex items-center gap-1"
-									>
-										Source Code ↗
-									</a>
-								)}
-							</div>
-						</div>
-					))
-				}
-			</div>
+    <section class="mx-auto mt-12 max-w-4xl px-4">
+      <FeaturedProjects title="Featured Case Studies" bullet="true" />
 		</section>
 
 		<div class="mt-16 text-center">
