@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// Fetch all entries from your notes collection
+const allNotes = await getCollection("notes");
+
+// Sort notes by updatedDate in descending order (newest first)
+const sortedNotes = allNotes.sort(
+    (a, b) => b.data.updatedDate.getTime() - a.data.updatedDate.getTime()
+);
+---
+
+<BaseLayout title="My Notes & Knowledge Base">
+    <main class="mx-auto max-w-4xl px-4 py-8">
+        <header
+            class="mb-12 border-b border-slate-200 pb-6 dark:border-slate-800"
+        >
+            <h1
+                class="mb-2 text-4xl font-bold tracking-tight text-slate-950 dark:text-white"
+            >
+                Knowledge Base
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400">
+                A collection of technical notes, code snippets, and digital
+                configurations.
+            </p>
+        </header>
+
+        {
+            sortedNotes.length === 0 ? (
+                <p class="text-slate-500 italic">
+                    No notes published just yet.
+                </p>
+            ) : (
+                <ul class="space-y-8">
+                    {sortedNotes.map((note) => (
+                        <li class="group relative flex flex-col items-start">
+                            <h2 class="text-2xl font-semibold tracking-tight text-slate-900 transition-colors group-hover:text-sky-500 dark:text-slate-100">
+                                <a href={`/notes/${note.id}/`}>
+                                    <span class="absolute -inset-x-4 -inset-y-6 z-0 scale-95 bg-slate-50 opacity-0 transition group-hover:scale-100 group-hover:opacity-100 sm:-inset-x-6 sm:rounded-2xl dark:bg-slate-800/50" />
+                                    <span class="relative z-10">
+                                        {note.data.title}
+                                    </span>
+                                </a>
+                            </h2>
+
+                            <time class="relative z-10 order-first mb-3 flex items-center pl-3.5 text-sm text-slate-400 dark:text-slate-500">
+                                <span
+                                    class="absolute inset-y-0 left-0 flex items-center"
+                                    aria-hidden="true"
+                                >
+                                    <span class="h-4 w-0.5 rounded-full bg-slate-200 dark:bg-slate-700" />
+                                </span>
+                                {note.data.updatedDate.toLocaleDateString(
+                                    "en-GB",
+                                    {
+                                        day: "numeric",
+                                        month: "long",
+                                        year: "numeric",
+                                    }
+                                )}
+                            </time>
+
+                            {note.data.description && (
+                                <p class="relative z-10 mt-2 text-sm text-slate-600 dark:text-slate-400">
+                                    {note.data.description}
+                                </p>
+                            )}
+
+                            <div class="relative z-10 mt-4 flex flex-wrap gap-2">
+                                {note.data.tags?.map((tag: string) => (
+                                    <span class="inline-flex items-center rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-400">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+    </main>
+</BaseLayout>

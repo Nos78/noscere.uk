@@ -1,0 +1,62 @@
+---
+// Import your site's default layout component (adjust the name if it's MainLayout, etc.)
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const noteEntries = await getCollection("notes");
+    return noteEntries.map((entry) => ({
+        params: { slug: entry.id }, // Astro v5 Content Layer uses 'id' instead of 'slug' for the param mapping
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+// Render the markdown content to HTML
+const { Content } = await render(entry);
+
+// Format the date cleanly for the header
+const formattedDate = entry.data.updatedDate.toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+---
+
+<BaseLayout title={entry.data.title}>
+    <article class="mx-auto max-w-3xl px-4 py-8">
+        <header class="mb-8 border-b border-zinc-200 pb-6 dark:border-zinc-800">
+            <div class="mb-2 flex items-center gap-3 text-sm text-zinc-500">
+                <span
+                    class="font-semibold tracking-wider text-blue-600 uppercase dark:text-blue-400"
+                >
+                    {entry.data.category}
+                </span>
+                <span>•</span>
+                <time datetime={entry.data.updatedDate.toISOString()}
+                    >{formattedDate}</time
+                >
+            </div>
+
+            <h1
+                class="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100"
+            >
+                {entry.data.title}
+            </h1>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+                {
+                    entry.data.tags.map((tag: string) => (
+                        <span class="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+                            #{tag}
+                        </span>
+                    ))
+                }
+            </div>
+        </header>
+
+        <div class="prose prose-zinc dark:prose-invert max-w-none">
+            <Content />
+        </div>
+    </article>
+</BaseLayout>
