@@ -23,6 +23,9 @@ Focuses on type-safe collection management, content validation, and Astro conten
     - Build validation pipeline in `src/utils/profileEngine.ts` to execute Gravatar MD5 image hashing and automated primary email lookup with fallback orchestration.
 - [x] **Automated Build-Time vCard Engine**
     - Build an automated script pipeline (`vcardEngine`) to cleanly compile an RFC 6350 compliant `.vcf` file into `/public/contacts/` at build time, enforcing `profileData.ts` as the single source of truth.
+- [ ] **Automated Internal Link & Footnote Resolver Engine**
+    - Build a custom build-time AST compiler plugin (via Remark/Rehype) to scan for internal references (e.g., `[Text](note:id)` and `[^1:note:id]`).
+    - Dynamically resolve type-safe Astro collection routes and auto-inject fully formed URL references and footnote blocks at the bottom of compile-ready HTML output.
 
 ---
 
@@ -41,8 +44,8 @@ Focuses on resolving design drift, eliminating CSS footprint duplication, and en
     - Centralize core layout variables directly within `src/layouts/BaseLayout.astro` so pages automatically inherit consistent high-contrast design.
 - [ ] **Unified Component Wrapper (`Card.astro`)**
     - Establish a reusable UI component (`Card.astro`) to encapsulate common utility classes (borders, background tints, paddings) used across modular features like the Skills Filter card layout.
-- [ ] **Tailwind Typography Engine Integration (`.prose`)**
-    - Inject the `.prose` structural layer (`prose prose-slate dark:prose-invert max-w-none`) into dynamic markdown layouts (`[...slug].astro`).
+- [x] **Tailwind Typography Engine Integration (`.prose`)**
+    - Inject the `.prose` structural layer (`prose prose-zinc dark:prose-invert max-w-none`) into dynamic markdown layouts (`[...slug].astro`).
 - [ ] **Mobile Chrome Layout Correction**
     - Resolve vertical layout stretching by replacing `justify-between` with a flexible `flex-grow` main shell container.
 - [ ] **Blog Call-To-Action Relocation**
@@ -90,4 +93,4 @@ Focuses on local continuity loops, automation integrity, and asset optimization 
 
 ---
 
-_Last Updated: June 25, 2026_
+_Last Updated: June 27, 2026_
