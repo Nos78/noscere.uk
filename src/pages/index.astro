@@ -4,6 +4,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SkillsFilter from "../components/SkillsFilter.astro";
 import FeaturedProjects from "../components/FeaturedProjects.astro";
 import QuotesEngine from "../components/QuotesEngine.astro";
+import Bullet from "../components/Bullet.astro";
 ---
 
 <BaseLayout title="noscere.uk | Home">
@@ -31,7 +32,7 @@ import QuotesEngine from "../components/QuotesEngine.astro";
 			<h2
 				class="text-2xl font-bold mb-6 text-slate-100 tracking-tight flex items-center text-justify gap-2 sm:text-left"
 			>
-				<span class="flex w-2 h-2 rounded-full bg-cyan-400"></span>
+                <Bullet />
 				Curriculum Vitae
 			</h2>
 			<SkillsFilter />
