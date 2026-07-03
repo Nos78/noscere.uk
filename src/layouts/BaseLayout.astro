@@ -3,16 +3,19 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
+import { cn } from "../utils/cn";
 
 interface Props {
 	title: string;
 }
 
 const { title = "noscere.uk" } = Astro.props;
+
+const htmlClasses = "bg-zinc-950 text-zinc-50";
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="bg-zinc-950 text-zinc-50">
+<html lang="en" class={cn("no-js", htmlClasses)}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Noscere Engineering Portfolio" />
@@ -20,6 +23,11 @@ const { title = "noscere.uk" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+        <script is:inline>
+            // Using 'is:inline' guarantees this script runs instantly
+            // in the head before the page body flashes onto the screen
+            document.documentElement.classList.replace("no-js", "js");
+        </script>
 	</head>
 
 	<!-- <body class="bg-slate-950 text-slate-100 antialiased">
