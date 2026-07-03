@@ -1,8 +1,13 @@
 ---
 // src/components/BackToHome.astro
-const { class: className, ...rest } = Astro.props;
+import type { ComponentProps } from "astro/types";
+import Back from "./Back.astro";
+
+interface Props extends ComponentProps<typeof Back> {
+    returnHome?: boolean;
+}
+
+const { returnHome = false, ...rest } = Astro.props;
 ---
 
-<a href="/" class="font-mono text-xs text-emerald-400 hover:underline"
-    >← Back to Home</a
->
+<Back text={returnHome ? "Return Home" : "Back to Home"} href="/" {...rest} />

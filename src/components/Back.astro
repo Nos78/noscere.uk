@@ -1,0 +1,27 @@
+---
+// src/components/Back.astro
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../utils/cn";
+
+interface Props extends HTMLAttributes<"a"> {
+    text?: string;
+    href?: string;
+}
+
+const {
+    text: textProp = "Back",
+    href: hrefProp = "../",
+    class: className,
+    ...rest
+} = Astro.props;
+
+const text = textProp || "Back";
+const href = hrefProp || "../";
+---
+
+<a
+    href={href}
+    class={cn("font-mono text-xs text-emerald-400 hover:underline", className)}
+    {...rest}
+    >← {text}
+</a>
