@@ -39,6 +39,12 @@ Focuses on resolving design drift, eliminating CSS footprint duplication, and en
     - Build `src/components/ProfileCard.astro` using a mobile-first column layout, hooked directly into the Alpine tab switcher to toggle link states.
 - [x] **Contact Sandbox Route**
     - Deploy an isolated `src/pages/contact.astro` endpoint route to act as an un-cluttered visual testing bed and standalone digital business card.
+- [x] **Navigation Element Encapsulation (Back / BackToHome Components)**
+    - Implement a centralized `src/utils/cn.ts` utility library using clsx and tailwind-merge to clean up runtime class priority resolution.
+    - Create a base `Back.astro` functional component providing standardized font-mono settings, arrow glyph layout, and parent-relative directory navigation rules.
+    - Derive a specialized `BackToHome.astro` interface layout mapping consistent textual targets ("Back to Home" / "Return Home") across active collection engines without breaking localized page overrides.
+- [x] **Clientside Javascript Detection**
+    - native javascript availability variants enabling future progressive enhancement architecture.
 - [ ] **Unified Visual Inheritance Model (BaseLayout)**
     - Extract fragmented container elements, background layers, and spatial blocks from the root index page.
     - Centralize core layout variables directly within `src/layouts/BaseLayout.astro` so pages automatically inherit consistent high-contrast design.
