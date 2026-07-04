@@ -23,7 +23,7 @@ Focuses on type-safe collection management, content validation, and Astro conten
     - Build validation pipeline in `src/utils/profileEngine.ts` to execute Gravatar MD5 image hashing and automated primary email lookup with fallback orchestration.
 - [x] **Automated Build-Time vCard Engine**
     - Build an automated script pipeline (`vcardEngine`) to cleanly compile an RFC 6350 compliant `.vcf` file into `/public/contacts/` at build time, enforcing `profileData.ts` as the single source of truth.
-- [ ] **Automated Internal Link & Footnote Resolver Engine**
+- [x] **Automated Internal Link & Footnote Resolver Engine**
     - Build a custom build-time AST compiler plugin (via Remark/Rehype) to scan for internal references (e.g., `[Text](note:id)` and `[^1:note:id]`).
     - Dynamically resolve type-safe Astro collection routes and auto-inject fully formed URL references and footnote blocks at the bottom of compile-ready HTML output.
 
