@@ -8,46 +8,43 @@ import Bullet from "../components/Bullet.astro";
 ---
 
 <BaseLayout title="noscere.uk | Home">
-	<main
-		class="flex-grow flex flex-col gap-12 items-center justify-center min-h-screen p-4 mx-auto px-4 pb-16 bg-slate-950"
-	>
-		<div class="flex flex-col p-12 pb-6 border-slate-800 sm:text-left">
-			<p class="text-lg text-slate-400 leading-relaxed max-w-2xl">
-				A full-stack engineering sandbox documenting low-overhead
-				architecture, bare-metal deployments, and user experience
-				paradigms. &nbsp; Systems logic meets clean user experience.
-			</p>
-			<p
-				class="text text-slate-400 leading-relaxed max-w-2xl text-center mb-8"
-			>
-				• Welcome to the sandbox. •
-			</p>
+    <main
+        class="mx-auto flex min-h-screen flex-grow flex-col items-center justify-center gap-12 bg-slate-950 p-4 px-4 pb-16"
+    >
+        <div class="flex flex-col border-slate-800 p-12 pb-6 sm:text-left">
+            <p class="max-w-2xl text-lg leading-relaxed text-slate-400">
+                A full-stack engineering sandbox documenting low-overhead
+                architecture, bare-metal deployments, and user experience
+                paradigms. &nbsp; Systems logic meets clean user experience.
+            </p>
+            <p
+                class="text mb-8 max-w-2xl text-center leading-relaxed text-slate-400"
+            >
+                • Welcome to the sandbox. •
+            </p>
 
-			<QuotesEngine
-				changeInterval="refresh"
-				allowClick={true}
-			/>
-		</div>
-		<section class="w-full max-w-4xl mx-auto px-4">
-			<h2
-				class="text-2xl font-bold mb-6 text-slate-100 tracking-tight flex items-center text-justify gap-2 sm:text-left"
-			>
+            <QuotesEngine changeInterval="refresh" allowClick={true} />
+        </div>
+        <section class="mx-auto w-full max-w-4xl px-4">
+            <h2
+                class="mb-6 flex items-center gap-2 text-justify text-2xl font-bold tracking-tight text-slate-100 sm:text-left"
+            >
                 <Bullet />
-				Curriculum Vitae
-			</h2>
-			<SkillsFilter />
-		</section>
-    <section class="mx-auto mt-12 max-w-4xl px-4">
+                Curriculum Vitae
+            </h2>
+            <SkillsFilter />
+        </section>
+        <section class="mx-auto mt-12 max-w-4xl px-4">
             <FeaturedProjects title="Featured Case Studies" bullet={true} />
-		</section>
+        </section>
 
-		<div class="mt-16 text-center">
-			<a
-				href="/blog"
-				class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl border border-slate-800 bg-slate-900/20 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/30 transition-all duration-200"
-			>
-				Read the Engineering Blog →
-			</a>
-		</div>
-	</main>
+        <div class="mt-16 text-center">
+            <a
+                href="/blog"
+                class="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/20 px-4 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-emerald-500/30 hover:text-emerald-400"
+            >
+                Read the Engineering Blog →
+            </a>
+        </div>
+    </main>
 </BaseLayout>

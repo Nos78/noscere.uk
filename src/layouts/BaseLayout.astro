@@ -6,7 +6,7 @@ import "../styles/global.css";
 import { cn } from "../utils/cn";
 
 interface Props {
-	title: string;
+    title: string;
 }
 
 const { title = "noscere.uk" } = Astro.props;
@@ -14,33 +14,33 @@ const { title = "noscere.uk" } = Astro.props;
 const htmlClasses = "bg-zinc-950 text-zinc-50";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class={cn("no-js", htmlClasses)}>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="description" content="Noscere Engineering Portfolio" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="Noscere Engineering Portfolio" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
         <script is:inline>
             // Using 'is:inline' guarantees this script runs instantly
             // in the head before the page body flashes onto the screen
             document.documentElement.classList.replace("no-js", "js");
         </script>
-	</head>
+    </head>
 
-	<!-- <body class="bg-slate-950 text-slate-100 antialiased">
+    <!-- <body class="bg-slate-950 text-slate-100 antialiased">
 		<slot />
 	</body> -->
-	<body class="min-h-screen flex flex-col justify-between">
-		<div>
-			<Header />
-			<main>
-				<slot />
-			</main>
-		</div>
+    <body class="flex min-h-screen flex-col justify-between">
+        <div>
+            <Header />
+            <main class="bg-slate-800 bg-zinc-900">
+                <slot />
+            </main>
+        </div>
 
-		<Footer />
-	</body>
+        <Footer />
+    </body>
 </html>
