@@ -7,44 +7,49 @@ import QuotesEngine from "../components/QuotesEngine.astro";
 import Bullet from "../components/Bullet.astro";
 ---
 
-<BaseLayout title="noscere.uk | Home">
-    <main
-        class="mx-auto flex min-h-screen flex-grow flex-col items-center justify-center gap-12 bg-slate-950 p-4 px-4 pb-16"
-    >
-        <div class="flex flex-col border-slate-800 p-12 pb-6 sm:text-left">
-            <p class="max-w-2xl text-lg leading-relaxed text-slate-400">
-                A full-stack engineering sandbox documenting low-overhead
-                architecture, bare-metal deployments, and user experience
-                paradigms. &nbsp; Systems logic meets clean user experience.
-            </p>
-            <p
-                class="text mb-8 max-w-2xl text-center leading-relaxed text-slate-400"
-            >
-                • Welcome to the sandbox. •
-            </p>
+<BaseLayout
+    title="noscere.uk | Home"
+    class="items-center justify-center gap-12"
+>
+    {/* Intro CTA block container */}
+    <div class="flex w-full flex-col p-4 pb-4 text-center sm:p-8 sm:text-left">
+        <p
+            class="mx-auto max-w-2xl text-lg leading-relaxed text-slate-400 sm:mx-0"
+        >
+            A full-stack engineering sandbox documenting low-overhead
+            architecture, bare-metal deployments, and user experience paradigms.
+            &nbsp; Systems logic meets clean user experience.
+        </p>
+        <p class="mt-4 mb-8 text-sm leading-relaxed text-slate-500">
+            • Welcome to the sandbox. •
+        </p>
 
-            <QuotesEngine changeInterval="refresh" allowClick={true} />
-        </div>
-        <section class="mx-auto w-full max-w-4xl px-4">
-            <h2
-                class="mb-6 flex items-center gap-2 text-justify text-2xl font-bold tracking-tight text-slate-100 sm:text-left"
-            >
-                <Bullet />
-                Curriculum Vitae
-            </h2>
-            <SkillsFilter />
-        </section>
-        <section class="mx-auto mt-12 max-w-4xl px-4">
-            <FeaturedProjects title="Featured Case Studies" bullet={true} />
-        </section>
+        <QuotesEngine changeInterval="refresh" allowClick={true} />
+    </div>
 
-        <div class="mt-16 text-center">
-            <a
-                href="/blog"
-                class="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/20 px-4 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-emerald-500/30 hover:text-emerald-400"
-            >
-                Read the Engineering Blog →
-            </a>
-        </div>
-    </main>
+    {/* Curriculum Vitae Showcase Section */}
+    <section class="w-full">
+        <h2
+            class="mb-6 flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-100"
+        >
+            <Bullet />
+            Curriculum Vitae
+        </h2>
+        <SkillsFilter />
+    </section>
+
+    {/* Featured Work Case Studies */}
+    <section class="mt-4 w-full">
+        <FeaturedProjects title="Featured Case Studies" bullet={true} />
+    </section>
+
+    {/* Bottom Blog CTA Interaction anchor */}
+    <div class="mt-8 text-center">
+        <a
+            href="/blog"
+            class="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/20 px-4 py-2 text-sm font-medium text-slate-300 transition-all duration-200 hover:border-emerald-500/30 hover:text-emerald-400"
+        >
+            Read the Engineering Blog →
+        </a>
+    </div>
 </BaseLayout>

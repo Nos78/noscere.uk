@@ -1,5 +1,5 @@
 ---
-// src/layouts/Layout.astro
+// src/layouts/BaseLayout.astro
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
@@ -7,11 +7,13 @@ import { cn } from "../utils/cn";
 
 interface Props {
     title: string;
+    class?: string;
 }
 
-const { title = "noscere.uk" } = Astro.props;
+const { title = "noscere.uk", class: className } = Astro.props;
 
-const htmlClasses = "bg-zinc-950 text-zinc-50";
+// Consolidated design token root: clear slate aesthetic, antialiased subpixels
+const htmlClasses = "bg-slate-950 text-slate-100 antialiased";
 ---
 
 <!doctype html>
@@ -24,22 +26,26 @@ const htmlClasses = "bg-zinc-950 text-zinc-50";
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
         <script is:inline>
-            // Using 'is:inline' guarantees this script runs instantly
-            // in the head before the page body flashes onto the screen
             document.documentElement.classList.replace("no-js", "js");
         </script>
     </head>
 
-    <!-- <body class="bg-slate-950 text-slate-100 antialiased">
-		<slot />
-	</body> -->
+    {
+        /* Flex-col min-h-screen enforces sticky footers naturally across all routing pools */
+    }
     <body class="flex min-h-screen flex-col justify-between">
-        <div>
-            <Header />
-            <main class="bg-slate-800 bg-zinc-900">
-                <slot />
-            </main>
-        </div>
+        <Header />
+
+        {/* The Macro Layout Grid Shell */}
+        {/* flex-grow resolves mobile Chrome layout stretching rules safely */}
+        <main
+            class={cn(
+                "flex-grow flex flex-col w-full max-w-3xl mx-auto px-6 py-12 sm:py-16",
+                className
+            )}
+        >
+            <slot />
+        </main>
 
         <Footer />
     </body>
